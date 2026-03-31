@@ -7,7 +7,7 @@ const links = [
   { label: "Mail", href: "mailto:kiranannadatha8@gmail.com" },
   { label: "GitHub", href: "https://github.com/kiranannadatha8", external: true },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/kiranannadatha8/", external: true },
-  { label: "Resume", href: "/Resume-career-fair.pdf", download: true },
+  { label: "Resume", href: "/Kiran-Annadata-Resume.pdf", download: true },
 ];
 
 const Contact = () => (
