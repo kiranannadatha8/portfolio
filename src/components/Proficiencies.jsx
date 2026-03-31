@@ -1,98 +1,78 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.17, 0.55, 0.55, 1] } }
-};
+const categories = [
+  {
+    label: "Skills",
+    items: [
+      "API Design",
+      "Frontend Architecture",
+      "Backend Logic",
+      "UX and Layout",
+    ],
+  },
+  {
+    label: "Tools",
+    items: ["VS Code", "Figma", "Postman", "Notion", "Stripe API"],
+  },
+  {
+    label: "Tech Stack",
+    items: ["React", "Node.js", "TypeScript", "PostgreSQL", "GraphQL"],
+  },
+  {
+    label: "Languages",
+    items: ["JavaScript", "Python", "HTML/CSS", "SQL", "Bash"],
+  },
+];
 
 const Proficiencies = () => {
   return (
-    <section className="flex flex-col md:flex-row gap-8 md:gap-16 py-[120px]">
-      <motion.div 
+    <section className="flex flex-col md:flex-row gap-4 md:gap-[16px] pt-[40px] md:pt-[60px] pb-[40px] md:pb-[60px]">
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: [0.17, 0.55, 0.55, 1], delay: 0.1 }}
-        className="w-full md:w-1/3 md:sticky md:top-28 self-start"
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: [0.17, 0.55, 0.55, 1] }}
+        className="w-full md:w-[348px] md:shrink-0 md:sticky md:top-28 self-start"
       >
-        <h2 className="text-3xl font-semibold text-primary-text tracking-tight">
+        <h2 className="text-[28px] md:text-[32px] font-medium text-[#00C96D] tracking-tight font-fredoka">
           Proficiencies
         </h2>
       </motion.div>
 
-      <div className="w-full md:w-2/3 flex flex-col gap-12 text-secondary-text">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-12"
-        >
-          
-          <motion.div variants={itemVariants} className="bg-accent-bg border border-[#333] rounded-[12px] p-8 flex flex-col gap-4 hover:border-gray-500 transition-colors duration-300 group">
-             <div className="text-primary-text font-medium">Skills</div>
-             <div className="flex flex-col gap-2 group-hover:text-gray-300 transition-colors">
-                <p>API Design</p>
-                <p>Frontend Architecture</p>
-                <p>Backend Logic</p>
-                <p>UX and Layout</p>
-             </div>
+      <div className="flex-1 flex flex-col">
+        {categories.map((cat, idx) => (
+          <motion.div
+            key={cat.label}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{
+              duration: 0.8,
+              ease: [0.17, 0.55, 0.55, 1],
+              delay: idx * 0.1,
+            }}
+            className={`flex flex-col sm:flex-row gap-2 sm:gap-[16px] pb-[16px] ${
+              idx < categories.length - 1 ? "border-b border-[#C8BBAA]" : ""
+            } ${idx === 0 ? "pt-0" : "pt-[16px]"}`}
+          >
+            <div className="w-full sm:w-[174px] sm:shrink-0">
+              <h3 className="text-[#00C96D] font-normal text-[16px] font-fredoka">
+                {cat.label}
+              </h3>
+            </div>
+            <ul className="flex flex-col gap-[4px] list-none p-0 m-0">
+              {cat.items.map((item) => (
+                <li
+                  key={item}
+                  className="text-[#6B7C6E] text-[15px] leading-[1.7]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </motion.div>
-
-          <motion.div variants={itemVariants} className="bg-accent-bg border border-[#333] rounded-[12px] p-8 flex flex-col gap-4 hover:border-gray-500 transition-colors duration-300 group">
-             <div className="text-primary-text font-medium">Tools</div>
-             <div className="flex flex-col gap-2 group-hover:text-gray-300 transition-colors">
-                <p>VS Code</p>
-                <p>Figma</p>
-                <p>Postman</p>
-                <p>Notion</p>
-                <p>Stripe API</p>
-             </div>
-          </motion.div>
-          
-        </motion.div>
-
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-12"
-        >
-          
-          <motion.div variants={itemVariants} className="bg-accent-bg border border-[#333] rounded-[12px] p-8 flex flex-col gap-4 hover:border-gray-500 transition-colors duration-300 group">
-             <div className="text-primary-text font-medium">Tech Stack</div>
-             <div className="flex flex-col gap-2 group-hover:text-gray-300 transition-colors">
-                <p>React</p>
-                <p>Next.js</p>
-                <p>Framer Motion</p>
-                <p>Express</p>
-                <p>JavaScript (ES6+)</p>
-                <p>Python</p>
-                <p>SQL</p>
-             </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="bg-accent-bg border border-[#333] rounded-[12px] p-8 flex flex-col gap-4 hover:border-gray-500 transition-colors duration-300 group">
-             <div className="text-primary-text font-medium">Spoken Languages</div>
-             <div className="flex flex-col gap-2 group-hover:text-gray-300 transition-colors">
-                <p>English</p>
-                <p>German</p>
-                <p>Spanish</p>
-                <p>Chinese</p>
-             </div>
-          </motion.div>
-          
-        </motion.div>
+        ))}
       </div>
     </section>
   );

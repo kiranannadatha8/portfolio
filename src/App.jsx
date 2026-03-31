@@ -11,9 +11,9 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-primary-bg font-inter selection:bg-white/20 selection:text-white">
+    <div className="min-h-screen bg-primary-bg font-inter selection:bg-[#00C96D]/20 selection:text-[#00C96D]">
       <Navbar />
-      <main className="max-w-[760px] mx-auto px-6 lg:px-4 flex flex-col pt-8">
+      <main className="max-w-[712px] mx-auto flex flex-col px-5 sm:px-6 md:px-0">
         <div id="hero"><Hero /></div>
         <div id="proficiencies"><Proficiencies /></div>
         <div id="work"><Work /></div>
