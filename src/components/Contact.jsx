@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 const E = [0.76, 0, 0.24, 1];
 
 const links = [
-  { label: "Mail", href: "mailto:kiran.annadata@gmail.com" },
-  { label: "GitHub", href: "https://github.com", external: true },
-  { label: "LinkedIn", href: "https://linkedin.com", external: true },
-  { label: "Resume", href: "/Kiran_Annadata_Resume.pdf", download: true },
+  { label: "Mail", href: "mailto:kiranannadatha8@gmail.com" },
+  { label: "GitHub", href: "https://github.com/kiranannadatha8", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/kiranannadatha8/", external: true },
+  { label: "Resume", href: "/Resume-career-fair.pdf", download: true },
 ];
 
 const Contact = () => (

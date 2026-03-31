@@ -30,7 +30,7 @@ const Footer = () => (
       </h2>
 
       <motion.a
-        href="mailto:kiran.annadata@gmail.com"
+        href="mailto:kiranannadatha8@gmail.com"
         className="mt-8 inline-flex items-center gap-2.5 bg-[#00C96D] text-white px-6 py-3 rounded-full text-[14px] font-medium hover:bg-[#00b35f] transition-colors duration-200"
         initial={{ opacity: 0, y: 16, scale: 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
