@@ -5,7 +5,6 @@ const links = [
   { name: "Proficiencies", id: "proficiencies" },
   { name: "Work", id: "work" },
   { name: "Education", id: "education" },
-  { name: "Certificates", id: "certificates" },
   { name: "Projects", id: "projects" },
   { name: "Contact", id: "contact" },
   { name: "Back Home", id: "hero" },
@@ -74,12 +73,43 @@ const Navbar = () => {
 
         {/* Nav row — sits at the bottom */}
         <div className="flex items-center justify-between py-[14px]">
-          <button
+          <motion.button
             onClick={() => handleScroll("hero")}
-            className="text-[#6B7C6E] hover:text-[#00C96D] transition-colors text-[14px] font-fredoka"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-[#3A4A3D] hover:text-[#00C96D] transition-colors text-[20px] flex overflow-hidden"
+            style={{ fontFamily: "'Cedarville Cursive', cursive" }}
           >
-            Jake Smith&#39;s Resume
-          </button>
+            <motion.span
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { staggerChildren: 0.06, delayChildren: 0.3 },
+                },
+              }}
+              className="flex"
+            >
+              {"Kiran Annadata".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 12, scaleY: 0.3 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      scaleY: 1,
+                      transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                    },
+                  }}
+                  style={{ display: "inline-block", whiteSpace: "pre" }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.span>
+          </motion.button>
 
           <button
             onClick={() => setIsOpen(!isOpen)}

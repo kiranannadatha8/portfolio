@@ -1,141 +1,144 @@
 import React from "react";
 import { motion } from "framer-motion";
+import profileImg from "../assets/my-image.jpg";
 
-const HEADSHOT =
-  "https://framerusercontent.com/images/Ng52OXKJes7obbflJ6oN07yFiMI.png?scale-down-to=512";
-
-const ABOUT_ITEMS = [
-  "Full-Stack Developer",
-  "Based in Berlin",
-  "5+ Years Experience",
-  "Open to Work",
-];
-
-/* Coordinate grid — 240×240, 8 lines each way, matching reference structure exactly.
-   Uses CSS divs with backgroundColor (not SVG stroke) for crisp 1px rendering.
-   Vertical lines are 300px tall, horizontal lines are 300px wide — both clipped
-   by overflow:hidden on the container, matching the reference's Framer implementation. */
-const CoordinateGrid = () => {
-  const size = 240;
-  const lineCount = 8;
-  const spacing = size / (lineCount - 1); // ~34.14px
-
-  return (
-    <div
-      className="absolute"
-      style={{
-        width: size,
-        height: size,
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        overflow: "hidden",
-        opacity: 0.12,
-      }}
-    >
-      {/* Vertical lines — 1px wide × 300px tall, clipped to 240px by container */}
-      {Array.from({ length: lineCount }).map((_, i) => (
-        <div
-          key={`v-${i}`}
-          style={{
-            position: "absolute",
-            left: i * spacing,
-            top: 0,
-            width: 1,
-            height: 300,
-            backgroundColor: "#00C96D",
-          }}
-        />
-      ))}
-      {/* Horizontal lines — 300px wide × 1px tall, centered on 240px container */}
-      {Array.from({ length: lineCount }).map((_, i) => (
-        <div
-          key={`h-${i}`}
-          style={{
-            position: "absolute",
-            left: -30,
-            top: i * spacing,
-            width: 300,
-            height: 1,
-            backgroundColor: "#00C96D",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
+const E = [0.76, 0, 0.24, 1];
 
 const Hero = () => (
-  <div className="flex flex-col md:flex-row gap-6 md:gap-[16px] items-start pt-[72px] md:pt-[120px] pb-[40px] md:pb-[60px]">
-    {/* ── LEFT COLUMN: "Jake Smith" heading ── */}
-    <div className="w-full md:w-[348px] md:shrink-0">
-      <motion.h1
+  <section className="pt-[90px] md:pt-[130px] pb-[40px] md:pb-[60px]">
+    {/* ── Full-width typographic name block ── */}
+    <div className="relative px-4 sm:px-8 md:px-14">
+      {/* KIRAN — renders in FRONT of photo */}
+      <motion.div
+        className="relative"
+        style={{ zIndex: 3 }}
+        initial={{ opacity: 0, y: 48 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.05, ease: E }}
+      >
+        <span
+          className="font-cormorant font-semibold text-[#00C96D] leading-[0.82] tracking-[-0.02em] block"
+          style={{ fontSize: "clamp(76px, 18vw, 260px)" }}
+        >
+          KIRAN
+        </span>
+      </motion.div>
+
+      {/* Photo — floats between KIRAN (front) and ANNADATA (back), desktop only */}
+      <motion.div
+        className="absolute hidden md:block"
+        style={{
+          zIndex: 2,
+          top: "28%",
+          right: "clamp(20px, 8vw, 110px)",
+          width: "clamp(120px, 11vw, 175px)",
+        }}
+        initial={{ opacity: 0, scale: 0.88, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: E, delay: 0.28 }}
+      >
+        <div
+          className="relative overflow-hidden rounded-[14px]"
+          style={{
+            aspectRatio: "3/4",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
+          }}
+        >
+          <img
+            src={profileImg}
+            alt="Kiran Annadata"
+            className="w-full h-full object-cover"
+          />
+          {/* Green curtain reveal */}
+          <motion.div
+            initial={{ y: "0%" }}
+            animate={{ y: "-101%" }}
+            transition={{ duration: 1.05, ease: E, delay: 0.35 }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "#00C96D",
+              zIndex: 10,
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* ANNADATA — renders BEHIND photo */}
+      <motion.div
+        className="relative"
+        style={{ zIndex: 1 }}
+        initial={{ opacity: 0, y: 48 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.05, ease: E, delay: 0.14 }}
+      >
+        <span
+          className="font-cormorant font-semibold text-[#3A4A3D] leading-[0.82] tracking-[-0.02em] block"
+          style={{ fontSize: "clamp(76px, 18vw, 260px)" }}
+        >
+          ANNADATA
+        </span>
+      </motion.div>
+    </div>
+
+    {/* ── Info strip ── */}
+    <div className="max-w-[712px] mx-auto px-5 sm:px-6 md:px-0 mt-10 md:mt-14">
+      {/* Tagline + available pill (+ mobile photo) */}
+      <motion.div
+        className="flex items-start gap-5 border-t border-[#C8BBAA] pt-6"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.17, 0.55, 0.55, 1] }}
-        className="text-[36px] sm:text-[42px] md:text-[48px] leading-[1.1] font-medium text-[#00C96D] tracking-tight font-fredoka"
+        transition={{ duration: 0.8, ease: E, delay: 0.5 }}
       >
-        Jake Smith
-      </motion.h1>
-    </div>
-
-    {/* ── RIGHT COLUMN: photo · about · bio ── */}
-    <div className="flex-1 flex flex-col gap-6 md:gap-8 w-full">
-      {/* Photo + static coordinate grid */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: [0.17, 0.55, 0.55, 1], delay: 0.2 }}
-        className="relative w-[80px] h-[120px]"
-      >
-        <CoordinateGrid />
-        <figure className="relative z-10 w-[80px] h-[120px] m-0">
+        {/* Mobile-only photo */}
+        <div className="md:hidden shrink-0 w-[76px] h-[101px] overflow-hidden rounded-[12px]">
           <img
-            src={HEADSHOT}
-            alt="Jake Smith"
-            className="w-[80px] h-[120px] rounded-[16px] object-cover block"
+            src={profileImg}
+            alt="Kiran Annadata"
+            className="w-full h-full object-cover"
           />
-        </figure>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="font-cormorant italic text-[20px] sm:text-[22px] text-[#6B7C6E] leading-snug">
+            Full-Stack Engineer &amp; AI Builder
+          </p>
+          <div className="inline-flex items-center gap-2 bg-[#00C96D]/10 px-3 py-1.5 rounded-full w-fit">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00C96D] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00C96D]" />
+            </span>
+            <span className="text-[12px] font-medium tracking-[0.12em] uppercase text-[#00C96D]">
+              Available for Work
+            </span>
+          </div>
+        </div>
       </motion.div>
 
-      {/* About row */}
+      {/* Bio + chips */}
       <motion.div
+        className="mt-5 flex flex-col sm:flex-row gap-4 sm:gap-8"
         initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: [0.17, 0.55, 0.55, 1], delay: 0.3 }}
-        className="flex flex-col sm:flex-row w-full border-t border-[#C8BBAA] pt-6"
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: E, delay: 0.65 }}
       >
-        <h3 className="w-full sm:w-[174px] sm:shrink-0 text-[#00C96D] font-normal text-[16px] font-fredoka mb-2 sm:mb-0">
-          About
-        </h3>
-        <ul className="flex flex-col gap-[4px] list-none p-0 m-0">
-          {ABOUT_ITEMS.map((item) => (
-            <li
-              key={item}
-              className="text-[#6B7C6E] text-[15px] leading-[1.6]"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </motion.div>
-
-      {/* Bio */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: [0.17, 0.55, 0.55, 1], delay: 0.4 }}
-        className="border-t border-[#C8BBAA] pt-6"
-      >
-        <p className="text-[#6B7C6E] text-[15px] leading-[1.6]">
-          When I'm not coding, you'll find me on the tennis court, gaming, or
-          sharing a good meal with friends.
+        <p className="text-[#6B7C6E] text-[15px] leading-[1.7] flex-1">
+          When I&apos;m not coding, you&apos;ll find me exploring new coffee
+          spots, gaming, or catching up on the latest in AI and tech.
         </p>
+        <div className="flex flex-wrap gap-2 sm:flex-col sm:items-end sm:justify-start">
+          {["Full-Stack Dev", "Virginia, US", "2+ Yrs Exp."].map((chip) => (
+            <span
+              key={chip}
+              className="px-3 py-1 rounded-full border border-[#C8BBAA] text-[13px] text-[#6B7C6E] bg-[#F0E6D3]/60 whitespace-nowrap"
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
       </motion.div>
     </div>
-  </div>
+  </section>
 );
 
 export default Hero;
