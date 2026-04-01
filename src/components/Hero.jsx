@@ -1,11 +1,55 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useCallback, useEffect } from "react";
+
 import profileImg from "../assets/my-image.jpg";
 
 const E = [0.76, 0, 0.24, 1];
 
-const Hero = () => (
-  <section className="pt-[90px] md:pt-[130px] pb-[40px] md:pb-[60px]">
+const CursorGlow = ({ sectionRef }) => {
+  const x = useMotionValue(-40);
+  const y = useMotionValue(-40);
+  const springX = useSpring(x, { stiffness: 80, damping: 22, mass: 0.6 });
+  const springY = useSpring(y, { stiffness: 80, damping: 22, mass: 0.6 });
+
+  const handleMouseMove = useCallback((e) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    x.set(e.clientX - rect.left);
+    y.set(e.clientY - rect.top);
+  }, [x, y, sectionRef]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    el.addEventListener("mousemove", handleMouseMove);
+    return () => el.removeEventListener("mousemove", handleMouseMove);
+  }, [handleMouseMove, sectionRef]);
+
+  return (
+    <motion.div
+      style={{
+        position: "absolute",
+        left: springX,
+        top: springY,
+        translateX: "-50%",
+        translateY: "-50%",
+        width: 520,
+        height: 520,
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(0,201,109,0.13) 0%, rgba(0,201,109,0.05) 45%, transparent 70%)",
+        pointerEvents: "none",
+        zIndex: 0,
+        filter: "blur(8px)",
+      }}
+    />
+  );
+};
+
+const Hero = () => {
+  const sectionRef = useRef(null);
+  return (
+  <section ref={sectionRef} className="relative overflow-hidden pt-[90px] md:pt-[130px] pb-[40px] md:pb-[60px]">
+    <CursorGlow sectionRef={sectionRef} />
     {/* ── Full-width typographic name block ── */}
     <div className="relative px-4 sm:px-8 md:px-14">
       {/* KIRAN — renders in FRONT of photo */}
@@ -139,6 +183,7 @@ const Hero = () => (
       </motion.div>
     </div>
   </section>
-);
+  );
+};
 
 export default Hero;
