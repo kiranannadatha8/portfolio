@@ -7,7 +7,7 @@ const links = [
   { name: "Education", id: "education" },
   { name: "Projects", id: "projects" },
   { name: "Contact", id: "contact" },
-  { name: "Back Home", id: "hero" },
+  { name: "Home", id: "hero" },
 ];
 
 const Navbar = () => {
